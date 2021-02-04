@@ -28,3 +28,9 @@ very disappointed upon realizing no such app had existed in real life. Therefore
 this childhood dream to life myself! Moreover, I also love experimenting with fashion in my daily life. However, 
 I often find myself feeling tired and lazy in the mornings, and I end up just throwing on a pair of jeans and a 
 sweatshirt. I think an app like this could help me improve my own daily style as well!
+
+## User Stories
+- As a user, I want to be able to add images of my clothes to my digital closet
+- As a user, I want to be able to manually sort my clothes into different categories
+- As a user, I want to be able to select pieces of clothing and see the images altogether
+- As a user, I want to be able to save outfits, consisting of preselected clothing
