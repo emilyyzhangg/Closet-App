@@ -8,26 +8,26 @@ public class Outfit {
     public Outfit(String name, List<ClothingItem> items) {}
 
     // MODIFIES: this
-    // EFFECTS: adds given clothing item to the outfit with given name and produces true. If outfit isn't found,
-    // produce false
-    public boolean addItemToOutfit(String outfitName, ClothingItem item) {
+    // EFFECTS: adds given clothing item to the outfit and return true, if item of clothing is a
+    // duplicate, do nothing and return false
+    public boolean addItemToOutfit(ClothingItem item) {
         return true;// stub
     }
 
     // MODIFIES: this
-    // EFFECTS: removes given clothing item to the outfit with given name, then produces true. If either clothing item
-    // or outfit aren't found produce false
-    public boolean removeItemInOutfit() {
+    // EFFECTS: removes given clothing item to the outfit, then produces true. If clothing item isn't found in
+    // outfit, do nothing and return false
+    public boolean removeItemInOutfit(ClothingItem item) {
         return false;// stub
     }
 
+    // EFFECTS: returns outfit name
     public String getOutfitName() {
         return null; // stub
     }
 
-    // EFFECTS: returns list of clothing items in outfit with given name if found
-    // if outfit with given name not found, produce empty list
-    public List<ClothingItem> displayOutfit(String outfitName) {
+    // EFFECTS: returns list of clothing items in outfit, returns empty list if no items in outfit
+    public List<ClothingItem> displayOutfit() {
         return null; // stub
     }
 }

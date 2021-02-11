@@ -21,52 +21,100 @@ public class OutfitTest {
         testItem = new ClothingItem("Test", "Red", "Pants");
         testItem2 = new ClothingItem("Test 2", "Pink", "Shirt");
         testItem3 = new ClothingItem("Test 3", "White", "Shoes");
+        testOutfit = new Outfit("Test Outfit", outfitClothes);
     }
 
     @Test
     void testOutfitConstructor() {
-        outfitClothes.add(testItem);
-        outfitClothes.add(testItem2);
-        outfitClothes.add(testItem3);
-
-        testOutfit = new Outfit("Test Outfit", outfitClothes);
-
         assertEquals("Test Outfit", testOutfit.getOutfitName());
-        assertEquals(3, testOutfit.displayOutfit("Test Outfit").size());
-        assertEquals(testItem, testOutfit.displayOutfit("Test Outfit").get(0));
-        assertEquals(testItem2, testOutfit.displayOutfit("Test Outfit").get(1));
-        assertEquals(testItem3, testOutfit.displayOutfit("Test Outfit").get(2));
+        assertEquals(0, testOutfit.displayOutfit().size());
     }
 
     @Test
-    void testAddItemToOutfitSucceed() {
-        outfitClothes.add(testItem);
-        outfitClothes.add(testItem2);
-
-        testOutfit = new Outfit("Test Outfit", outfitClothes);
-
-        assertTrue(testOutfit.addItemToOutfit("Test Outfit", testItem3));
-        assertEquals(3, testOutfit.displayOutfit("Test Outfit").size());
-        assertEquals(testItem, testOutfit.displayOutfit("Test Outfit").get(0));
-        assertEquals(testItem2, testOutfit.displayOutfit("Test Outfit").get(1));
-        assertEquals(testItem3, testOutfit.displayOutfit("Test Outfit").get(2));
+    void testAddItemToOutfitEmptySucceed() {
+        assertTrue(testOutfit.addItemToOutfit(testItem3));
+        assertEquals(1, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
     }
 
     @Test
-    void testAddItemToOutfitOutfitNotFound() {
-        outfitClothes.add(testItem);
-        outfitClothes.add(testItem2);
+    void testAddItemToOutfitNotEmptySucceed() {
+        testOutfit.addItemToOutfit(testItem);
+        testOutfit.addItemToOutfit(testItem2);
 
-        testOutfit = new Outfit("Test Outfit", outfitClothes);
+        assertTrue(testOutfit.addItemToOutfit(testItem3));
+        assertEquals(3, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+        assertEquals(testItem2, testOutfit.displayOutfit().get(1));
+        assertEquals(testItem3, testOutfit.displayOutfit().get(2));
 
-        assertFalse(testOutfit.addItemToOutfit("Test Outfit Wrong", testItem3));
-        assertEquals(2, testOutfit.displayOutfit("Test Outfit").size());
-        assertEquals(testItem, testOutfit.displayOutfit("Test Outfit").get(0));
-        assertEquals(testItem2, testOutfit.displayOutfit("Test Outfit").get(1));
     }
 
+    @Test
+    void testAddItemToOutfitOutfitDuplicate() {
+        testOutfit.addItemToOutfit(testItem);
+        testOutfit.addItemToOutfit(testItem2);
 
+        assertFalse(testOutfit.addItemToOutfit(testItem));
+        assertEquals(2, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+        assertEquals(testItem2, testOutfit.displayOutfit().get(1));
+    }
 
+    @Test
+    void testRemoveItemInOutfitEmpty() {
+        assertFalse(testOutfit.removeItemInOutfit(testItem));
+        assertEquals(0, testOutfit.displayOutfit().size());
+    }
 
+    @Test
+    void testRemoveItemInOutfitSucceed() {
+        testOutfit.addItemToOutfit(testItem);
+        testOutfit.addItemToOutfit(testItem2);
 
+        assertTrue(testOutfit.removeItemInOutfit(testItem2));
+        assertEquals(1, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+    }
+
+    @Test
+    void testRemoveItemNotFound() {
+        testOutfit.addItemToOutfit(testItem);
+        testOutfit.addItemToOutfit(testItem2);
+
+        assertFalse(testOutfit.removeItemInOutfit(testItem3));
+        assertEquals(2, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+        assertEquals(testItem, testOutfit.displayOutfit().get(1));
+    }
+
+    @Test
+    void testGetOutfitName() {
+        assertEquals("Test Outfit", testOutfit.getOutfitName());
+    }
+
+    @Test
+    void testDisplayOutfitEmpty() {
+        assertEquals(0, testOutfit.displayOutfit().size());
+    }
+
+    @Test
+    void testDisplayOutfitOneItem() {
+        testOutfit.addItemToOutfit(testItem);
+
+        assertEquals(1, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+    }
+
+    @Test
+    void testDisplayOutfitManyItems() {
+        testOutfit.addItemToOutfit(testItem);
+        testOutfit.addItemToOutfit(testItem2);
+        testOutfit.addItemToOutfit(testItem3);
+
+        assertEquals(3, testOutfit.displayOutfit().size());
+        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+        assertEquals(testItem2, testOutfit.displayOutfit().get(1));
+        assertEquals(testItem3, testOutfit.displayOutfit().get(2));
+    }
 }
