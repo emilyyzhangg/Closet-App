@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,6 +22,7 @@ public class OutfitTest {
         testItem = new ClothingItem("Test", "Red", "Pants");
         testItem2 = new ClothingItem("Test 2", "Pink", "Shirt");
         testItem3 = new ClothingItem("Test 3", "White", "Shoes");
+        outfitClothes = new ArrayList<>();
         testOutfit = new Outfit("Test Outfit", outfitClothes);
     }
 
@@ -34,7 +36,7 @@ public class OutfitTest {
     void testAddItemToOutfitEmptySucceed() {
         assertTrue(testOutfit.addItemToOutfit(testItem3));
         assertEquals(1, testOutfit.displayOutfit().size());
-        assertEquals(testItem, testOutfit.displayOutfit().get(0));
+        assertEquals(testItem3, testOutfit.displayOutfit().get(0));
     }
 
     @Test
@@ -85,7 +87,7 @@ public class OutfitTest {
         assertFalse(testOutfit.removeItemInOutfit(testItem3));
         assertEquals(2, testOutfit.displayOutfit().size());
         assertEquals(testItem, testOutfit.displayOutfit().get(0));
-        assertEquals(testItem, testOutfit.displayOutfit().get(1));
+        assertEquals(testItem2, testOutfit.displayOutfit().get(1));
     }
 
     @Test

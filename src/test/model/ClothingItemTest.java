@@ -39,6 +39,6 @@ public class ClothingItemTest {
 
     @Test
     void testToString() {
-        assertEquals("Name = Test, Colour = Red, Category = Pants", testItem.toString());
+        assertEquals("Name: Test, Colour: Red, Category: Pants", testItem.toString());
     }
 }

@@ -229,7 +229,7 @@ class ClosetTest {
 
         assertEquals(2, closet.size());
         assertEquals(testItem, closet.get(0));
-        assertEquals(testItem3, closet.get(2));
+        assertEquals(testItem3, closet.get(1));
     }
 
     @Test
@@ -302,7 +302,7 @@ class ClosetTest {
         ClothingItem testItem3 = new ClothingItem("Test 3", "Red", "Shirts");
         testCloset.addItem(testItem3);
 
-        assertEquals(3, testCloset.numItemsInCategory("Shirts"));
+        assertEquals(2, testCloset.numItemsInCategory("Shirts"));
     }
 
     @Test
@@ -310,7 +310,7 @@ class ClosetTest {
         testCloset.addItem(testItem);
 
         assertTrue(testCloset.changeItemName(testItem, "New Name"));
-        assertEquals("New Name", testItem.getName());
+        assertEquals("New Name", testCloset.allItems().get(0).getName());
     }
 
     @Test
@@ -320,23 +320,63 @@ class ClosetTest {
         testCloset.addItem(testItem2);
 
         assertFalse(testCloset.changeItemName(testItem, "Test 2"));
-        assertEquals("Test", testItem.getName());
+        assertEquals("Test", testCloset.allItems().get(0).getName());
     }
 
     @Test
-    void testChangeItemColour() {
+    void testChangeItemColourEmpty() {
+        assertFalse(testCloset.changeItemColour(testItem, "Red"));
+        assertEquals(0, testCloset.numTotalItems());
+        assertEquals(0, testCloset.numItemsOfColour("Red"));
+    }
+
+    @Test
+    void testChangeItemColourFound() {
         testCloset.addItem(testItem);
-        testCloset.changeItemColour(testItem, "Blue");
 
-        assertEquals("Blue", testItem.getColour());
+        assertTrue(testCloset.changeItemColour(testItem, "Blue"));
+        assertEquals(1, testCloset.numTotalItems());
+        assertEquals(1, testCloset.numItemsOfColour("Blue"));
+        assertEquals(0, testCloset.numItemsOfColour("Red"));
     }
 
     @Test
-    void testChangeItemCategory() {
+    void testChangeItemColourNotFound() {
+        testCloset.addItem(testItem);
+        ClothingItem newItem = new ClothingItem("Purple Hat", "Purple", "Hat");
+
+        assertFalse(testCloset.changeItemColour(newItem, "Red"));
+        assertEquals(1, testCloset.numTotalItems());
+        assertEquals(1, testCloset.numItemsOfColour("Red"));
+        assertEquals(0, testCloset.numItemsOfColour("Purple"));
+    }
+
+    @Test
+    void testChangeItemCategoryEmpty() {
+        assertFalse(testCloset.changeItemCategory(testItem, "Scarves"));
+        assertEquals(0, testCloset.numTotalItems());
+        assertEquals(0, testCloset.numItemsInCategory("Scarves"));
+    }
+
+    @Test
+    void testChangeItemCategoryFound() {
         testCloset.addItem(testItem);
         testCloset.changeItemCategory(testItem, "Purses");
 
-        assertEquals("Purses", testItem.getCategory());
+        assertEquals(1, testCloset.numTotalItems());
+        assertEquals(1, testCloset.numItemsInCategory("Purses"));
+        assertEquals(0, testCloset.numItemsInCategory("Pants"));
+    }
+
+    @Test
+    void testChangeItemCategoryNotFound() {
+        testCloset.addItem(testItem);
+        ClothingItem newItem = new ClothingItem("Purple Hat", "Purple", "Hat");
+
+        assertFalse(testCloset.changeItemCategory(newItem, "Jorts"));
+        assertEquals(1, testCloset.numTotalItems());
+        assertEquals(1, testCloset.numItemsInCategory("Pants"));
+        assertEquals(0, testCloset.numItemsInCategory("Jorts"));
     }
 
 }
