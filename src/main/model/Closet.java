@@ -159,4 +159,26 @@ public class Closet {
         }
     }
 
+    // EFFECTS: returns true if given string is not the same as the name of an item in the closet; else false
+    public boolean isValidName(String name) {
+        List names = new ArrayList<>();
+
+        for (ClothingItem c : this.clothes) {
+            names.add(c.getName());
+        }
+        return !names.contains(name);
+    }
+
+    // REQUIRES: item with given name exists in the closet
+    // EFFECTS: returns item with given name
+    public ClothingItem getItemFromName(String name) {
+        ClothingItem choice = null;
+
+        for (ClothingItem c : this.clothes) {
+            if (c.getName() == name) {
+                choice = c;
+            }
+        }
+        return choice;
+    }
 }

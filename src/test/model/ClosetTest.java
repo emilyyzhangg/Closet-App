@@ -379,4 +379,24 @@ class ClosetTest {
         assertEquals(0, testCloset.numItemsInCategory("Jorts"));
     }
 
+    @Test
+    void testIsValidNameTrue() {
+        testCloset.addItem(testItem);
+
+        assertTrue(testCloset.isValidName("Apple"));
+    }
+
+    @Test
+    void testIsValidNameFalse() {
+        testCloset.addItem(testItem);
+
+        assertFalse(testCloset.isValidName("Test"));
+    }
+
+    @Test
+    void testGetItemFromName() {
+        testCloset.addItem(testItem);
+        assertEquals(testItem, testCloset.getItemFromName("Test"));
+    }
+
 }
