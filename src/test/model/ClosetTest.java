@@ -314,13 +314,22 @@ class ClosetTest {
     }
 
     @Test
-    void testChangeItemNameNotValid() {
+    void testChangeItemNameNotValidRepeat() {
         testCloset.addItem(testItem);
         ClothingItem testItem2 = new ClothingItem("Test 2", "Purple", "Shirts");
         testCloset.addItem(testItem2);
 
         assertFalse(testCloset.changeItemName(testItem, "Test 2"));
         assertEquals("Test", testCloset.allItems().get(0).getName());
+    }
+
+    @Test
+    void testChangeItemNameNoItem() {
+        ClothingItem testItem2 = new ClothingItem("Test 2", "Purple", "Shirts");
+        testCloset.addItem(testItem2);
+
+        assertFalse(testCloset.changeItemName(testItem, "fail"));
+        assertEquals("Test 2", testCloset.allItems().get(0).getName());
     }
 
     @Test
@@ -394,9 +403,15 @@ class ClosetTest {
     }
 
     @Test
-    void testGetItemFromName() {
+    void testGetItemFromNameSucceed() {
         testCloset.addItem(testItem);
         assertEquals(testItem, testCloset.getItemFromName("Test"));
+    }
+
+    @Test
+    void testGetItemFromNameNoName() {
+        testCloset.addItem(testItem);
+        assertEquals(null, testCloset.getItemFromName("Wrong name"));
     }
 
 }

@@ -52,7 +52,7 @@ public class SavedOutfits {
         return savedOutfits.size();
     }
 
-    // REQUIRES: no two outfits have the same name, outfit exists in saved outfits, outfit is not empty
+    // REQUIRES: no two outfits have the same name
     // EFFECTS: returns list of clothing items given the name of the outfit
     public List<ClothingItem> getOutfitFromName(String name) {
         List<ClothingItem> clothesInOutfit = new ArrayList<>();

@@ -108,4 +108,13 @@ public class SavedOutfitsTest {
         savedOutfits.addOutfit(testOutfit);
         assertEquals(list, savedOutfits.getOutfitFromName("Test"));
     }
+
+    @Test
+    void testGetOutfitFromNameNoOutfit() {
+        testOutfit.addItemToOutfit(item);
+        List<ClothingItem> list = new ArrayList<>();
+        savedOutfits.addOutfit(testOutfit);
+
+        assertEquals(list, savedOutfits.getOutfitFromName("Fail"));
+    }
 }
