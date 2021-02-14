@@ -3,6 +3,7 @@ package ui;
 import model.Closet;
 import model.ClothingItem;
 import model.Outfit;
+import model.SavedOutfits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,13 @@ import java.util.Scanner;
 public class ClosetApp {
     private Closet closet;
     private Outfit display;
-    private List<ClothingItem> clothes;
+    private SavedOutfits savedOutfits;
     private Scanner input;
 
+    // EFFECTS: runs the closet application
+    public ClosetApp() {
+        runCloset();
+    }
 
     // MODIFIES: this
     // EFFECTS: processes user input to run closet app
@@ -25,7 +30,7 @@ public class ClosetApp {
 
         while (keepGoing) {
             displayHomeMenu();
-            String command = input.next();
+            String command = input.nextLine();
             command = command.toLowerCase();
 
             if (command.equals("q")) {
@@ -39,20 +44,28 @@ public class ClosetApp {
     // MODIFIES: this
     // EFFECTS: processes command given by the user
     private void processCommand(String command) {
-        if (command.equals("d")) {
-            getDressed(display);
-        } else if (command.equals("a")) {
-            addToCloset();
-        } else if (command.equals("r")) {
-            removeFromCloset();
-        } else if (command.equals("v")) {
-            viewItemsInCloset();
-        } else if (command.equals("n")) {
-            createOutfit();
-        } else if (command.equals("o")) {
-            viewSavedOutfit();
-        } else {
-            System.out.println("Sorry, that's not a valid input. Please try again!");
+        switch (command) {
+            case "d":
+                getDressed(display);
+                break;
+            case "a":
+                addToCloset();
+                break;
+            case "r":
+                removeFromCloset();
+                break;
+            case "v":
+                viewItemsInCloset();
+                break;
+            case "n":
+                createOutfit();
+                break;
+            case "o":
+                viewSavedOutfit();
+                break;
+            default:
+                System.out.println("Sorry, that's not a valid input. Please try again!");
+                break;
         }
 
     }
@@ -61,8 +74,9 @@ public class ClosetApp {
     // EFFECTS: initializes closet and current outfit
     private void init() {
         closet = new Closet();
-        clothes = new ArrayList<>();
+        List<ClothingItem> clothes = new ArrayList<>();
         display = new Outfit("Today's Outfit", clothes);
+        savedOutfits = new SavedOutfits();
         input = new Scanner(System.in);
     }
 
@@ -71,18 +85,16 @@ public class ClosetApp {
         System.out.println("\nWelcome to your virtual closet!");
         System.out.println("\tEnter 'd' to get dressed");
         System.out.println("\tEnter 'a' to add a clothing item to your closet");
-        System.out.println("\tEnter 'r' to remove a clothing item from you closet");
+        System.out.println("\tEnter 'r' to remove a clothing item from your closet");
         System.out.println("\tEnter 'v' to view all the items in your closet");
         System.out.println("\tEnter 'n' to create and save a new outfit");
-        System.out.println("\tEnter 'o' to view all your saved outfits");
+        System.out.println("\tEnter 'o' to view a saved outfit");
         System.out.println("\tEnter 'q' to quit");
     }
 
     // MODIFIES: this
     // EFFECTS: creates a new clothing item and adds it to the closet if possible (name not a duplicate)
     private void addToCloset() {
-        System.out.println("Add a New Clothing Item to Your Closet:");
-
         String name = getClothingName();
         String colour = getClothingColour();
         String category = getClothingCategory();
@@ -90,21 +102,22 @@ public class ClosetApp {
         ClothingItem newItem = new ClothingItem(name, colour, category);
 
         closet.addItem(newItem);
+        System.out.println("Successfully added item!");
     }
 
     // EFFECTS: prompts user for the name of a new clothing item and returns the given string
     private String getClothingName() {
-        String command = input.next();
 
         System.out.println("Please enter the name of your item: ");
-        String name = command;
+        String command = input.nextLine();
+        command = command.toLowerCase();
 
-        while (!closet.isValidName(name)) {
+        if (!closet.isValidName(command)) {
             System.out.println("Sorry, another item in your closet has the same name");
-            System.out.println("Please try again with a different name.");
-            getClothingName();
+            System.out.println("Please try again with a different name. \n");
+            return getClothingName();
         }
-        return name;
+        return command;
     }
 
     // EFFECTS: prompts user for the colour of a new clothing items and returns the given string
@@ -120,14 +133,15 @@ public class ClosetApp {
         System.out.println("\twhite");
         System.out.println("\tbrown");
 
-        String command = input.next();
+        String command = input.nextLine();
         command = command.toLowerCase();
 
-        while (!isValidColour(command)) {
+        if (isValidColour(command)) {
+            return command;
+        } else {
             System.out.println("Sorry, that's not a valid colour. Please try again");
-            getClothingColour();
+            return getClothingColour();
         }
-        return command;
     }
 
     // EFFECTS: returns true if user input matches one of the valid colours. if not, returns false
@@ -148,14 +162,15 @@ public class ClosetApp {
         System.out.println("\tdresses");
         System.out.println("\tshoes");
 
-        String command = input.next();
+        String command = input.nextLine();
         command = command.toLowerCase();
 
-        while (!isValidCategory(command)) {
+        if (isValidCategory(command)) {
+            return command;
+        } else {
             System.out.println("Sorry, that's not a valid category. Please try again.");
-            getClothingCategory();
+            return getClothingCategory();
         }
-        return command;
     }
 
     // EFFECTS: returns true if the user input matches one of the valid colours; else returns false
@@ -168,15 +183,22 @@ public class ClosetApp {
     // MODIFIES: this
     // EFFECTS: removes item from closet if it exists, else do nothing
     public void removeFromCloset() {
-        String command = input.next();
         ClothingItem itemRemoved;
 
-        System.out.println(closet.allItemsNames());
-        System.out.println("Please input the name of the item you want to remove: ");
+        System.out.println("\nPlease input the name of the item you want to remove: ");
+        System.out.println("\tTo view all items, enter 'v'");
+        System.out.println("\tTo quit, enter 'q'");
 
-        if (closet.allItemsNames().contains(command)) {
+        String command = input.nextLine();
+        if (command.equals("v")) {
+            showClothes(closet.allItems(), "all", "na");
+            removeFromCloset();
+        } else if (command.equals("q")) {
+            System.out.println("Have a nice day!");
+        } else if (closet.allItemsNames().contains(command)) {
             itemRemoved = closet.getItemFromName(command);
             closet.removeItem(itemRemoved);
+            System.out.println("Item successfully removed!");
         } else {
             System.out.println("Sorry, there is no item in your closet with that name. Please try again.");
             removeFromCloset();
@@ -185,65 +207,269 @@ public class ClosetApp {
 
     // EFFECTS: returns the names of all of the items in the closet
     public void viewItemsInCloset() {
-        if (closet.numTotalItems() == 0) {
+        if (this.closet.numTotalItems() == 0) {
             System.out.println("Your closet is currently empty.");
         } else {
-            System.out.println(closet.allItemsNames());
+            showClothes(closet.allItems(), "all", "na");
         }
     }
 
     // MODIFIES: this
     // EFFECTS: creates a new outfit
     public void createOutfit() {
-        String command = input.next();
         List<ClothingItem> clothes = new ArrayList<>();
+        boolean status = true;
 
         System.out.println("Please enter the name of this outfit: ");
-        String name = command;
+        String command = input.nextLine();
 
-        while (addItemToOutfit(clothes)) {
-            addItemToOutfit(clothes);
+        if (doesOutfitNameExist(command)) {
+            System.out.println("Sorry, another outfit in your closet already has this name. Please try again.");
+            createOutfit();
+        } else {
+            while (status) {
+                status = addItemToOutfit(clothes);
+            }
+            Outfit newOutfit = new Outfit(command, clothes);
+            savedOutfits.addOutfit(newOutfit);
         }
-        Outfit newOutfit = new Outfit(name, clothes);
     }
 
     // MODIFIES: this
     // EFFECTS: adds an item of clothing to an outfit
     public boolean addItemToOutfit(List<ClothingItem> clothes) {
-        String command = input.next();
+        System.out.println("\n" + "Please enter the name of the item you wish to add: ");
+        System.out.println("\tEnter 'v' to view all items in your closet");
+        System.out.println("\tEnter 'q' When done");
 
-        System.out.println(closet.allItemsNames());
-        System.out.println("Please enter the name of the item you wish to add: ");
-        System.out.println("When done, enter 'q'.");
+        String command = input.nextLine();
 
-        if (command.equals("q")) {
+        if (command.equals("v")) {
+            showClothes(closet.allItems(), "all", "na");
+            return true;
+        } else if (command.equals("q")) {
             return false;
         } else if (closet.allItemsNames().contains(command)) {
             clothes.add(closet.getItemFromName(command));
-            System.out.println("Item successfully added to closet.");
+            System.out.println("Item successfully added.");
             return true;
         } else {
             System.out.println("Sorry, this item doesn't exist. Please try again.");
-            return false;
+            return true;
         }
     }
 
-    // EFFECTS: returns a the names of the clothing items in the saved outfit with given name;
+    // EFFECTS: returns the information of the clothing items in the saved outfit with given name;
     public void viewSavedOutfit() {
+        List<ClothingItem> listItems;
+
+        System.out.println();
         System.out.println("Please enter the name of the outfit you wish to view");
+        System.out.println("\tEnter 'v' to view all outfit names");
+        System.out.println("\tEnter 'q' to quit");
+        String command = input.nextLine();
+        command = command.toLowerCase();
 
+        if (command.equals("v")) {
+            allSavedOutfitNames();
+            viewSavedOutfit();
+        } else if (command.equals("q")) {
+            System.out.println("Have a great day!");
+        } else if (doesOutfitNameExist(command)) {
+            listItems = savedOutfits.getOutfitFromName(command);
+            for (ClothingItem c : listItems) {
+                System.out.println("\nName: " + c.getName() + "\n\tColour: " + c.getColour()
+                        + "\n\tCategory: " + c.getCategory());
+            }
+        } else {
+            System.out.println("Sorry, the outfit you're looking for doesn't exist. Please try again.");
+            viewSavedOutfit();
+        }
+    }
 
+    // EFFECTS: returns the list of the names of all saved outfits
+    public void allSavedOutfitNames() {
+        StringBuilder listNames = new StringBuilder("Outfit names: ");
+
+        for (String name : savedOutfits.allOutfitNames()) {
+            name = name + ", ";
+            listNames.append(name);
+        }
+        System.out.println(listNames);
+    }
+
+    // EFFECTS: returns true if outfit with given name exists in saved outfits
+    public boolean doesOutfitNameExist(String command) {
+        boolean result = false;
+
+        if (savedOutfits.allOutfitNames().contains(command)) {
+            result = true;
+        }
+        return result;
     }
 
     // MODIFIES: this
-    // EFFECTS: displays daily outfit and allows user to add and remove items from it
+    // EFFECTS: allows user to add and remove items from outfit
     private void getDressed(Outfit outfit) {
-        System.out.println("");
+        String command = getDressedHome();
+
+        if (command.equals("see")) {
+            showClothes(closet.allItems(), "all", command);
+            getDressed(outfit);
+        } else if (command.equals("colour") || command.equals("category")) {
+            filterItems(command);
+            getDressed(outfit);
+        }  else if (command.equals("dress")) {
+            addItemsDaily(outfit);
+            getDressed(outfit);
+        } else if (command.equals("view")) {
+            viewDailyOutfit(outfit);
+            getDressed(outfit);
+        } else if (command.equals("q")) {
+            System.out.println("Have a great day!");
+        } else {
+            System.out.println("Sorry, that's not a valid option. Please try again");
+            getDressed(outfit);
+        }
     }
 
+    // EFFECTS: outputs options for the user to choose from in the get dressed window
+    private String getDressedHome() {
+        System.out.println("\nEnter 'dress' to get dressed.");
+        System.out.println("\tEnter 'see' to view all the items in your closet");
+        System.out.println("\tEnter 'colour' to filter your clothing items by colour");
+        System.out.println("\tEnter 'category' to filter your clothing items by category");
+        System.out.println("\tEnter 'view' to view your daily outfit");
+        System.out.println("\tEnter 'q' to quit");
+        String command = input.nextLine();
+        command = command.toLowerCase();
+        return command;
+    }
 
+    // EFFECTS: filters the clothing items in the closet by colour or category
+    private void filterItems(String command) {
+        if (command.equals("colour")) {
+            showClothes(closet.allItems(), "colour", getColourFilter());
+        } else if (command.equals("category")) {
+            showClothes(closet.allItems(), "category", getCategoryFilter());
+        }
+    }
 
+    // EFFECTS: displays the daily outfit for the user to see
+    private void viewDailyOutfit(Outfit outfit) {
+        showClothes(outfit.displayOutfit(), "all", "na");
+        System.out.println("\nEnter 'a' to add an item to your outfit.");
+        System.out.println("Enter 'q' to quit.");
 
+        String command = input.nextLine();
+        command = command.toLowerCase();
 
+        if (command.equals("a")) {
+            addItemsDaily(outfit);
+        } else if (command.equals("q")) {
+            System.out.println("Have a great day!");
+        } else {
+            System.out.println("Sorry, that's not a valid input. Please try again.");
+            viewDailyOutfit(outfit);
+        }
+    }
 
+    // EFFECTS: prompts user for a valid colour and returns it
+    private String getColourFilter() {
+        System.out.println("\nTo filter the items in your closet by colour, please enter one of the following: ");
+        System.out.println("\tred");
+        System.out.println("\torange");
+        System.out.println("\tyellow");
+        System.out.println("\tgreen");
+        System.out.println("\tblue");
+        System.out.println("\tpurple");
+        System.out.println("\tblack");
+        System.out.println("\twhite");
+        System.out.println("\tbrown");
+
+        String command = input.nextLine();
+        command = command.toLowerCase();
+
+        if (!isValidColour(command)) {
+            System.out.println("Sorry, that's not a valid colour. Please try again");
+            return getColourFilter();
+        }
+        return command;
+    }
+
+    // EFFECTS: prompts user for a valid category and returns it
+    public String getCategoryFilter() {
+        System.out.println("\nTo set the category of your item, please enter one of the following: ");
+        System.out.println("\taccessories");
+        System.out.println("\tshirts");
+        System.out.println("\tjackets");
+        System.out.println("\tpants");
+        System.out.println("\tskirts");
+        System.out.println("\tdresses");
+        System.out.println("\tshoes");
+
+        String command = input.nextLine();
+        command = command.toLowerCase();
+
+        if (!isValidCategory(command)) {
+            System.out.println("Sorry, that's not a valid category. Please try again.");
+            return getCategoryFilter();
+        }
+        return command;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds items to daily outfit
+    private void addItemsDaily(Outfit outfit) {
+        List<ClothingItem> items = new ArrayList<>();
+        boolean status = true;
+
+        while (status) {
+            status = addItemToOutfit(items);
+        }
+
+        for (ClothingItem c : items) {
+            outfit.addItemToOutfit(c);
+        }
+    }
+
+    // REQUIRES: filter is one of: "all", "colour", "category"
+    // EFFECTS: returns a list clothes and their respective colours and categories
+    private void showClothes(List<ClothingItem> clothes, String filter, String colourOrCategory) {
+        List<ClothingItem> result = new ArrayList<>();
+        switch (filter) {
+            case "all":
+                result.addAll(clothes);
+                break;
+            case "colour":
+            case "category":
+                filterColour(clothes, colourOrCategory);
+                break;
+        }
+
+        if (result.size() > 0) {
+            for (ClothingItem i : result) {
+                System.out.println("\nName: " + i.getName() + "\n\tColour: " + i.getColour() + "\n\tCategory: "
+                        + i.getCategory());
+            }
+        }
+    }
+
+    private void filterColour(List<ClothingItem> clothes, String colourOrCategory) {
+        List<ClothingItem> result = new ArrayList<>();
+
+        for (ClothingItem c : clothes) {
+            if (c.getColour().equals(colourOrCategory) || c.getCategory().equals(colourOrCategory)) {
+                result.add(c);
+            }
+        }
+        if (result.size() > 0) {
+            for (ClothingItem i : result) {
+                System.out.println("\nName: " + i.getName() + "\n\tColour: " + i.getColour() + "\n\tCategory: "
+                        + i.getCategory());
+            }
+        } else {
+            System.out.println("Sorry, this list is empty. Please try again");
+        }
+    }
 }

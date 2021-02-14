@@ -34,7 +34,7 @@ public class Closet {
     // EFFECTS: removes the item of clothing and return true. if item doesn't exist in closet, then return false.
     public boolean removeItem(ClothingItem item) {
         if (this.clothes.contains(item)) {
-            this.clothes.remove(item);
+            clothes.remove(item);
             return true;
         } else {
             return false;
@@ -174,8 +174,8 @@ public class Closet {
     public ClothingItem getItemFromName(String name) {
         ClothingItem choice = null;
 
-        for (ClothingItem c : this.clothes) {
-            if (c.getName() == name) {
+        for (ClothingItem c : clothes) {
+            if (c.getName().equals(name)) {
                 choice = c;
             }
         }
