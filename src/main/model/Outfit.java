@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+// Represents an outfit with a list of clothing items
 public class Outfit {
     List<ClothingItem> clothes;
     String name;

@@ -455,6 +455,7 @@ public class ClosetApp {
         }
     }
 
+    // EFFECTS: shows all items of clothing in a list of clothing items with given colour
     private void filterColour(List<ClothingItem> clothes, String colourOrCategory) {
         List<ClothingItem> result = new ArrayList<>();
 

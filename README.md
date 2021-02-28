@@ -34,3 +34,5 @@ sweatshirt. I think an app like this could help me improve my own daily style as
 - As a user, I want to be able to manually sort my clothes into different colours and categories
 - As a user, I want to be able to save outfits, consisting of preselected clothing and see the clothes all together
 - As a user, I want to be able to see all the clothing in my closet 
+- As a user, I want to be able to save clothing to my closet
+- As a user, I want to be able to load by closet with all of my saved clothing

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a closet with a list of clothing items
 public class Closet {
 
     private List<ClothingItem> clothes;

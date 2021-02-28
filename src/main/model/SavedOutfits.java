@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents a list of outfits
 public class SavedOutfits {
     List<Outfit> savedOutfits;
 
