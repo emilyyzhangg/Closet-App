@@ -1,10 +1,15 @@
 package model;
 
+import jdk.nashorn.api.scripting.JSObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // represents a list of outfits
-public class SavedOutfits {
+public class SavedOutfits implements Writable {
     List<Outfit> savedOutfits;
 
     // EFFECTS: constructs an empty collection of outfits
@@ -66,4 +71,21 @@ public class SavedOutfits {
         return clothesInOutfit;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("outfits", outfitsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns outfits in this list of saved outfits as a JSON array
+    private JSONArray outfitsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Outfit o : savedOutfits) {
+            jsonArray.put(o.toJson());
+        }
+
+        return jsonArray;
+    }
 }

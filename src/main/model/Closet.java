@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a closet with a list of clothing items
-public class Closet {
+public class Closet implements Writable {
 
     private List<ClothingItem> clothes;
 
@@ -181,5 +185,22 @@ public class Closet {
             }
         }
         return choice;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("items", itemsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns clothing items in this closet as a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (ClothingItem c : clothes) {
+            jsonArray.put(c.toJson());
+        }
+        return jsonArray;
     }
 }

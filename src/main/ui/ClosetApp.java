@@ -4,13 +4,24 @@ import model.Closet;
 import model.ClothingItem;
 import model.Outfit;
 import model.SavedOutfits;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 // Closet Application
 public class ClosetApp {
+    private static final String JSON_STORE_CLOSET = "./data/Closet.json";
+    private static final String JSON_STORE_SAVED_OUTFITS = "./data/SavedOutfits.json";
+    private final JsonWriter jsonWriterCloset;
+    private final JsonReader jsonReaderCloset;
+    private final JsonWriter jsonWriterSavedOutfits;
+    private final JsonReader jsonReaderSavedOutfits;
+
     private Closet closet;
     private Outfit display;
     private SavedOutfits savedOutfits;
@@ -18,6 +29,13 @@ public class ClosetApp {
 
     // EFFECTS: runs the closet application
     public ClosetApp() {
+        input = new Scanner(System.in);
+        jsonWriterCloset = new JsonWriter(JSON_STORE_CLOSET);
+        jsonReaderCloset = new JsonReader(JSON_STORE_CLOSET);
+
+        jsonWriterSavedOutfits = new JsonWriter(JSON_STORE_SAVED_OUTFITS);
+        jsonReaderSavedOutfits = new JsonReader(JSON_STORE_SAVED_OUTFITS);
+
         runCloset();
     }
 
@@ -64,10 +82,25 @@ public class ClosetApp {
                 viewSavedOutfit();
                 break;
             default:
-                System.out.println("Sorry, that's not a valid input. Please try again!");
+                processCommandPersistence(command);
                 break;
         }
+    }
 
+    // MODIFIES: this
+    // EFFECTS: processes command given by the user
+    private void processCommandPersistence(String command) {
+        switch (command) {
+            case "s":
+                saveCloset();
+                break;
+            case "l":
+                loadCloset();
+                break;
+            default:
+                System.out.println("Sorry, that's not a valid input! Please try again.");
+                break;
+        }
     }
 
     // MODIFIES: this
@@ -89,6 +122,8 @@ public class ClosetApp {
         System.out.println("\tEnter 'v' to view all the items in your closet");
         System.out.println("\tEnter 'n' to create and save a new outfit");
         System.out.println("\tEnter 'o' to view a saved outfit");
+        System.out.println("\tEnter 's' save closet to file");
+        System.out.println("\tEnter 'l' to load closet from file");
         System.out.println("\tEnter 'q' to quit");
     }
 
@@ -471,6 +506,37 @@ public class ClosetApp {
             }
         } else {
             System.out.println("Sorry, this list is empty. Please try again");
+        }
+    }
+
+    // EFFECTS: saves the closet and all saved outfits to file
+    private void saveCloset() {
+        try {
+            jsonWriterCloset.open();
+            jsonWriterCloset.writeCloset(closet);
+            jsonWriterCloset.close();
+            System.out.println("Successfully saved closet to " + JSON_STORE_CLOSET);
+
+            jsonWriterSavedOutfits.open();
+            jsonWriterSavedOutfits.writeOutfits(savedOutfits);
+            jsonWriterSavedOutfits.close();
+            System.out.println("Successfully saved closet to " + JSON_STORE_SAVED_OUTFITS);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_CLOSET);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the closet and all saved outfits from file
+    private void loadCloset() {
+        try {
+            closet = jsonReaderCloset.readCloset();
+            System.out.println("Loaded closet from" + JSON_STORE_CLOSET);
+            savedOutfits = jsonReaderSavedOutfits.readSavedOutfits();
+            System.out.println("Loaded outfits from" + JSON_STORE_SAVED_OUTFITS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_CLOSET);
         }
     }
 }

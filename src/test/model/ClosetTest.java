@@ -413,5 +413,4 @@ class ClosetTest {
         testCloset.addItem(testItem);
         assertEquals(null, testCloset.getItemFromName("Wrong name"));
     }
-
 }

@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 
 // Represents an outfit with a list of clothing items
-public class Outfit {
+public class Outfit implements Writable {
     List<ClothingItem> clothes;
     String name;
 
@@ -45,5 +49,24 @@ public class Outfit {
     // EFFECTS: returns list of clothing items in outfit, returns empty list if no items in outfit
     public List<ClothingItem> displayOutfit() {
         return this.clothes;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("outfitItems", itemsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns clothing in this outfit as a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (ClothingItem c : clothes) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }

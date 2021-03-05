@@ -1,0 +1,12 @@
+{"items": [
+    {
+        "colour": "red",
+        "name": "red",
+        "category": "shoes"
+    },
+    {
+        "colour": "black",
+        "name": "tie",
+        "category": "accessories"
+    }
+]}

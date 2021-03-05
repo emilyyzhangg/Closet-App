@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a clothing item with a name, colour, and category
-public class ClothingItem {
+public class ClothingItem implements Writable {
     private String name;
     private String colour;
     private String category;
@@ -30,5 +33,14 @@ public class ClothingItem {
     // EFFECTS: produces a string representation of the clothing item
     public String toString() {
         return "Name: " + name + ", Colour: " + colour + ", Category: " + category;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("colour", colour);
+        json.put("category", category);
+        return json;
     }
 }

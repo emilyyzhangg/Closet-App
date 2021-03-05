@@ -1,0 +1,15 @@
+{"outfits": [{
+    "outfitItems": [
+        {
+            "colour": "black",
+            "name": "tie",
+            "category": "accessories"
+        },
+        {
+            "colour": "red",
+            "name": "red",
+            "category": "shoes"
+        }
+    ],
+    "name": "red black tie"
+}]}

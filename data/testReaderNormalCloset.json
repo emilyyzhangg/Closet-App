@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "name": "jean jacket",
+      "colour": "black",
+      "category": "jackets"
+    },
+    {
+      "name": "sundress",
+      "colour": "yellow",
+      "category": "dresses"
+    }
+  ]
+}
