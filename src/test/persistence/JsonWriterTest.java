@@ -1,6 +1,5 @@
 package persistence;
 
-import com.oracle.javafx.jmx.json.JSONReader;
 import model.Closet;
 import model.ClothingItem;
 import model.Outfit;
