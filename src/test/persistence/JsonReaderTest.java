@@ -1,12 +1,21 @@
 package persistence;
 
 import model.Closet;
+import model.ClothingItem;
+import model.Outfit;
 import model.SavedOutfits;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/*
+Tests for JsonReader Class
+Citation: code taken and modified from JsonReaderTest class in JsonSerializationDemo
+ */
 
 public class JsonReaderTest extends JsonTest {
 
@@ -38,12 +47,19 @@ public class JsonReaderTest extends JsonTest {
         try {
             Closet cl = reader.readCloset();
             assertEquals(2, cl.numTotalItems());
+
             assertEquals("jean jacket", cl.allItemsNames().get(0));
             assertEquals(1, cl.numItemsOfColour("black"));
             assertEquals(1, cl.numItemsInCategory("jackets"));
+
             assertEquals("sundress", cl.allItemsNames().get(1));
             assertEquals(1, cl.numItemsOfColour("yellow"));
             assertEquals(1, cl.numItemsInCategory("dresses"));
+
+            List<ClothingItem> items = cl.allItems();
+            checkItem("jean jacket", "black", "jackets", items.get(0));
+            checkItem("sundress", "yellow", "dresses", items.get(1));
+
         } catch (IOException e) {
             fail("Couldn't read from that file");
         }

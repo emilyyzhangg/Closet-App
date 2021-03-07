@@ -1,15 +1,77 @@
-{"outfits": [{
-    "outfitItems": [
-        {
-            "colour": "black",
-            "name": "tie",
-            "category": "accessories"
-        },
-        {
-            "colour": "red",
-            "name": "red",
-            "category": "shoes"
-        }
-    ],
-    "name": "red black tie"
-}]}
+{"outfits": [
+    {
+        "outfitItems": [
+            {
+                "colour": "red",
+                "name": "red heels",
+                "category": "shoes"
+            },
+            {
+                "colour": "blue",
+                "name": "gingham dress",
+                "category": "dresses"
+            },
+            {
+                "colour": "white",
+                "name": "petticoat",
+                "category": "skirts"
+            },
+            {
+                "colour": "white",
+                "name": "blouse",
+                "category": "shirts"
+            }
+        ],
+        "name": "dorothy"
+    },
+    {
+        "outfitItems": [
+            {
+                "colour": "black",
+                "name": "leather jacket",
+                "category": "jackets"
+            },
+            {
+                "colour": "white",
+                "name": "white tee",
+                "category": "shirts"
+            },
+            {
+                "colour": "blue",
+                "name": "jeans",
+                "category": "pants"
+            },
+            {
+                "colour": "black",
+                "name": "docs",
+                "category": "shoes"
+            }
+        ],
+        "name": "punk"
+    },
+    {
+        "outfitItems": [
+            {
+                "colour": "white",
+                "name": "white beret",
+                "category": "accessories"
+            },
+            {
+                "colour": "white",
+                "name": "white coat",
+                "category": "jackets"
+            },
+            {
+                "colour": "white",
+                "name": "white dress",
+                "category": "dresses"
+            },
+            {
+                "colour": "white",
+                "name": "white heels",
+                "category": "shoes"
+            }
+        ],
+        "name": "beth's all white outfit"
+    }
+]}

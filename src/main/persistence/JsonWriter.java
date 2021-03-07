@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/*
+Represents a writer that writes JSON representation of closet and saved outfits to file
+Citation: code obtained and modified from JsonWriter class in JsonSerializationDemo
+ */
+
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

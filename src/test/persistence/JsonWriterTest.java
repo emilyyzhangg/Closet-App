@@ -13,6 +13,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/*
+Tests for JsonWriter Class
+Citation: code taken and modified from JsonWriterTest.Java class in JsonSerializationDemo
+ */
+
 public class JsonWriterTest {
     @Test
     void testWriterInvalidFile() {

@@ -1,0 +1,25 @@
+{"outfits": [
+    {
+        "outfitItems": [
+            {
+                "colour": "white",
+                "name": "dress",
+                "category": "dresses"
+            },
+            {
+                "colour": "blue",
+                "name": "heels",
+                "category": "shoes"
+            }
+        ],
+        "name": "cottage"
+    },
+    {
+        "outfitItems": [{
+            "colour": "black",
+            "name": "jean jacket",
+            "category": "jackets"
+        }],
+        "name": "punk"
+    }
+]}

@@ -1,12 +1,62 @@
 {"items": [
     {
         "colour": "red",
-        "name": "red",
+        "name": "red heels",
         "category": "shoes"
     },
     {
+        "colour": "blue",
+        "name": "gingham dress",
+        "category": "dresses"
+    },
+    {
+        "colour": "white",
+        "name": "petticoat",
+        "category": "skirts"
+    },
+    {
+        "colour": "white",
+        "name": "blouse",
+        "category": "shirts"
+    },
+    {
         "colour": "black",
-        "name": "tie",
+        "name": "leather jacket",
+        "category": "jackets"
+    },
+    {
+        "colour": "white",
+        "name": "white tee",
+        "category": "shirts"
+    },
+    {
+        "colour": "blue",
+        "name": "jeans",
+        "category": "pants"
+    },
+    {
+        "colour": "black",
+        "name": "docs",
+        "category": "shoes"
+    },
+    {
+        "colour": "white",
+        "name": "white coat",
+        "category": "jackets"
+    },
+    {
+        "colour": "white",
+        "name": "white dress",
+        "category": "dresses"
+    },
+    {
+        "colour": "white",
+        "name": "white beret",
         "category": "accessories"
+    },
+    {
+        "colour": "white",
+        "name": "white heels",
+        "category": "shoes"
     }
 ]}

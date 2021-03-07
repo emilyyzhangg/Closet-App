@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/*
+Represents a reader that reads from JSON representation of closet and saved outfits stored in file
+Citation: code obtained and modified from JsonReader class in JsonSerializationDemo
+ */
+
 public class JsonReader {
     private String source;
 
@@ -23,6 +28,8 @@ public class JsonReader {
         this.source = source;
     }
 
+    // EFFECTS: reads closet from file and returns it;
+    // throws IOException if an error occurs reading data from file
     public Closet readCloset() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -30,6 +37,8 @@ public class JsonReader {
         return parseCloset(jsonObject);
     }
 
+    // EFFECTS: reads closet from file and returns it;
+    // throws IOException if an error occurs reading data from file
     public SavedOutfits readSavedOutfits() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -110,7 +119,7 @@ public class JsonReader {
         so.addOutfit(outfit);
     }
 
-    // MODIFIES: of
+    // MODIFIES: items
     // EFFECTS: parses item from JSON object and adds it to saved outfit
     private void addItemToOutfit(List<ClothingItem> items, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
