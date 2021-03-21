@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents an action that allows the user to view an item
 public class ViewAction extends AbstractAction {
 
@@ -56,7 +57,7 @@ public class ViewAction extends AbstractAction {
     // MODIFIES: this
     // EFFECTS: displays the items as a list of JButtons
     private void displayItems(List<ClothingItem> items) {
-        JPanel itemsPanel = new JPanel();
+        ScrollablePanel itemsPanel = new ScrollablePanel();
 
         for (ClothingItem i : items) {
             JButton button = new JButton(new ShowItemAction(i));
@@ -67,8 +68,20 @@ public class ViewAction extends AbstractAction {
         itemsPanel.setBounds(20, 80, 760, 450);
         itemsPanel.setBackground(new Color(136, 201, 232));
         viewPanel.add(itemsPanel);
+        setScrollPanel(itemsPanel);
 
         closetAppUI.changePanel(viewPanel);
+    }
+
+    // MODIFIES: this, itemsPanel
+    // EFFECTS: Sets up a scrollPane to display items
+    private void setScrollPanel(JPanel itemsPanel) {
+        JScrollPane scrollPane = new JScrollPane(itemsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getViewport().setPreferredSize(new Dimension(760, 450));
+        scrollPane.setViewportView(itemsPanel);
+        scrollPane.setBounds(20, 80, 760, 450);
+        viewPanel.add(scrollPane);
     }
 
     // Represents an action that displays a clothing item image

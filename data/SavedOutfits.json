@@ -73,5 +73,25 @@
             }
         ],
         "name": "beth's all white outfit"
+    },
+    {
+        "outfitItems": [
+            {
+                "colour": "Purple",
+                "name": "tie",
+                "category": "Accessories"
+            },
+            {
+                "colour": "White",
+                "name": "blouse",
+                "category": "Shirts"
+            },
+            {
+                "colour": "Black",
+                "name": "docs",
+                "category": "Shoes"
+            }
+        ],
+        "name": "tie"
     }
 ]}

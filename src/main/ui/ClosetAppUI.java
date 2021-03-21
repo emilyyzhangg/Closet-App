@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
+// Represents the GUI of the closet app
 public class ClosetAppUI extends JFrame {
     private static JFrame frame;
     private static JPanel panel;

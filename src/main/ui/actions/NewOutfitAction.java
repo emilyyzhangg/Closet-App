@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents an action that takes user to page to create a new outfit
 public class NewOutfitAction extends AbstractAction {
     private final ClosetAppUI closetAppUI;
@@ -75,10 +76,12 @@ public class NewOutfitAction extends AbstractAction {
         itemsLabel.setBounds(100, 110, 300, 25);
         newOutfitPanel.add(itemsLabel);
 
-        JPanel itemsPanel = new JPanel();
+        ScrollablePanel itemsPanel = new ScrollablePanel();
         itemsPanel.setBackground(new Color(183, 147, 217));
         itemsPanel.setBounds(100, 130, 600, 350);
+
         newOutfitPanel.add(itemsPanel);
+        setScrollPanel(itemsPanel);
 
         List<ClothingItem> items = closetAppUI.getItemsInCloset();
         for (ClothingItem i : items) {
@@ -86,6 +89,17 @@ public class NewOutfitAction extends AbstractAction {
             box.setFont(new Font("Serif", Font.PLAIN, 30));
             itemsPanel.add(box);
         }
+    }
+
+    // MODIFIES: this, itemsPanel
+    // EFFECTS: Sets up a scrollPane to display items
+    private void setScrollPanel(JPanel itemsPanel) {
+        JScrollPane scrollPane = new JScrollPane(itemsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getViewport().setPreferredSize(new Dimension(600, 350));
+        scrollPane.setViewportView(itemsPanel);
+        scrollPane.setBounds(100, 130, 600, 350);
+        newOutfitPanel.add(scrollPane);
     }
 
     // Represents a checkbox that represents an item in the closet

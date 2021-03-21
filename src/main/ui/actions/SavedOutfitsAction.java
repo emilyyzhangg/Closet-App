@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents an action that allows the user to view their saved outfits
 public class SavedOutfitsAction extends AbstractAction {
     private final ClosetAppUI closetAppUI;
@@ -58,16 +59,29 @@ public class SavedOutfitsAction extends AbstractAction {
     private void displayOutfitButtons() {
         List<Outfit> outfits = closetAppUI.getSavedOutfitsAsList();
 
-        JPanel outfitButtonsPanel = new JPanel();
+        ScrollablePanel outfitButtonsPanel = new ScrollablePanel();
         outfitButtonsPanel.setBackground(new Color(239, 174, 196));
         outfitButtonsPanel.setBounds(20, 80, 760, 450);
         savedOutfitsPanel.add(outfitButtonsPanel);
+        setScrollPanel(outfitButtonsPanel);
+
 
         for (Outfit outfit : outfits) {
             JButton button = new JButton(new ShowOutfitAction(outfit));
             button.setFont(outfitButtonFont);
             outfitButtonsPanel.add(button);
         }
+    }
+
+    // MODIFIES: this, itemsPanel
+    // EFFECTS: Sets up a scrollPane to display items
+    private void setScrollPanel(JPanel itemsPanel) {
+        JScrollPane scrollPane = new JScrollPane(itemsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getViewport().setPreferredSize(new Dimension(760, 450));
+        scrollPane.setViewportView(itemsPanel);
+        scrollPane.setBounds(20, 80, 760, 450);
+        savedOutfitsPanel.add(scrollPane);
     }
 
     // Represents the action taken when an outfit button is pressed, displays the outfit

@@ -58,5 +58,10 @@
         "colour": "White",
         "name": "white heels",
         "category": "Shoes"
+    },
+    {
+        "colour": "Purple",
+        "name": "tie",
+        "category": "Accessories"
     }
 ]}

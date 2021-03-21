@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents an action that takes the user to a page to delete a clothing item
 public class RemoveAction extends AbstractAction {
     private final ClosetAppUI closetAppUI;
@@ -48,7 +49,7 @@ public class RemoveAction extends AbstractAction {
         removePanel.add(label);
 
         List<ClothingItem> itemsInCloset = closetAppUI.getItemsInCloset();
-        JPanel itemsPanel = new JPanel();
+        ScrollablePanel itemsPanel = new ScrollablePanel();
 
         for (ClothingItem i : itemsInCloset) {
             JButton itemButton = new JButton(new RemoveItemAction(i));
@@ -60,7 +61,19 @@ public class RemoveAction extends AbstractAction {
         itemsPanel.setBackground(new Color(178, 219, 149));
         removePanel.add(itemsPanel);
 
+        setScrollPanel(itemsPanel);
         closetAppUI.changePanel(removePanel);
+    }
+
+    // MODIFIES: this, itemsPanel
+    // EFFECTS: Sets up a scrollPane to display items
+    private void setScrollPanel(JPanel itemsPanel) {
+        JScrollPane scrollPane = new JScrollPane(itemsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getViewport().setPreferredSize(new Dimension(760, 450));
+        scrollPane.setViewportView(itemsPanel);
+        scrollPane.setBounds(20, 80, 760, 450);
+        removePanel.add(scrollPane);
     }
 
     // Represents an action that removes an item

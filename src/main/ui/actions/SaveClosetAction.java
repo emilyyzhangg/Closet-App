@@ -7,6 +7,7 @@ import ui.ClosetAppUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+// Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents an action that allows the user to save their closet
 public class SaveClosetAction extends AbstractAction {
     ClosetAppUI closetAppUI;
