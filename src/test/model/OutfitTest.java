@@ -23,12 +23,12 @@ public class OutfitTest {
         testItem2 = new ClothingItem("Test 2", "Pink", "Shirt");
         testItem3 = new ClothingItem("Test 3", "White", "Shoes");
         outfitClothes = new ArrayList<>();
-        testOutfit = new Outfit("Test Outfit", outfitClothes);
+        testOutfit = new Outfit("test outfit", outfitClothes);
     }
 
     @Test
     void testOutfitConstructor() {
-        assertEquals("Test Outfit", testOutfit.getOutfitName());
+        assertEquals("test outfit", testOutfit.getOutfitName());
         assertEquals(0, testOutfit.displayOutfit().size());
     }
 
@@ -92,7 +92,7 @@ public class OutfitTest {
 
     @Test
     void testGetOutfitName() {
-        assertEquals("Test Outfit", testOutfit.getOutfitName());
+        assertEquals("test outfit", testOutfit.getOutfitName());
     }
 
     @Test

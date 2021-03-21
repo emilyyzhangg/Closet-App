@@ -2,24 +2,24 @@
     {
         "outfitItems": [
             {
-                "colour": "red",
+                "colour": "Red",
                 "name": "red heels",
-                "category": "shoes"
+                "category": "Shoes"
             },
             {
-                "colour": "blue",
+                "colour": "Blue",
                 "name": "gingham dress",
-                "category": "dresses"
+                "category": "Dresses"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "petticoat",
-                "category": "skirts"
+                "category": "Skirts"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "blouse",
-                "category": "shirts"
+                "category": "Shirts"
             }
         ],
         "name": "dorothy"
@@ -27,24 +27,24 @@
     {
         "outfitItems": [
             {
-                "colour": "black",
+                "colour": "Black",
                 "name": "leather jacket",
-                "category": "jackets"
+                "category": "Jackets"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "white tee",
-                "category": "shirts"
+                "category": "Shirts"
             },
             {
-                "colour": "blue",
+                "colour": "Blue",
                 "name": "jeans",
-                "category": "pants"
+                "category": "Pants"
             },
             {
-                "colour": "black",
+                "colour": "Black",
                 "name": "docs",
-                "category": "shoes"
+                "category": "Shoes"
             }
         ],
         "name": "punk"
@@ -52,24 +52,24 @@
     {
         "outfitItems": [
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "white beret",
-                "category": "accessories"
+                "category": "Accessories"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "white coat",
-                "category": "jackets"
+                "category": "Jackets"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "white dress",
-                "category": "dresses"
+                "category": "Dresses"
             },
             {
-                "colour": "white",
+                "colour": "White",
                 "name": "white heels",
-                "category": "shoes"
+                "category": "Shoes"
             }
         ],
         "name": "beth's all white outfit"

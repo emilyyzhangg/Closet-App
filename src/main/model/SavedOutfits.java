@@ -71,6 +71,15 @@ public class SavedOutfits implements Writable {
         return clothesInOutfit;
     }
 
+    // EFFECTS: returns list of outfits in saved outfits
+    public List<Outfit> getOutfits() {
+        List<Outfit> outfits = new ArrayList<>();
+
+        outfits.addAll(savedOutfits);
+
+        return outfits;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

@@ -13,7 +13,7 @@ public class Outfit implements Writable {
 
     // EFFECTS: constructs a saved outfit with associated name and clothing items
     public Outfit(String outfitName, List<ClothingItem> items) {
-        name = outfitName;
+        name = outfitName.toLowerCase();
         clothes = items;
     }
 

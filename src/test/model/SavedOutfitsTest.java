@@ -21,7 +21,7 @@ public class SavedOutfitsTest {
         items.add(item);
         savedOutfits = new SavedOutfits();
 
-        testOutfit = new Outfit("Test", items);
+        testOutfit = new Outfit("test", items);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class SavedOutfitsTest {
 
     @Test
     void testRemoveOutfitUnsuccessful() {
-        Outfit testOutfit2 = new Outfit("Test 2", items);
+        Outfit testOutfit2 = new Outfit("test 2", items);
 
         savedOutfits.addOutfit(testOutfit);
         assertFalse(savedOutfits.removeOutfit(testOutfit2));
@@ -65,12 +65,12 @@ public class SavedOutfitsTest {
     void testAllOutfitNames() {
         savedOutfits.addOutfit(testOutfit);
 
-        Outfit testOutfit2 = new Outfit("Test 2", items);
+        Outfit testOutfit2 = new Outfit("test 2", items);
         savedOutfits.addOutfit(testOutfit2);
 
         assertEquals(2, savedOutfits.allOutfitNames().size());
-        assertEquals("Test", savedOutfits.allOutfitNames().get(0));
-        assertEquals("Test 2", savedOutfits.allOutfitNames().get(1));
+        assertEquals("test", savedOutfits.allOutfitNames().get(0));
+        assertEquals("test 2", savedOutfits.allOutfitNames().get(1));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class SavedOutfitsTest {
     @Test
     void testNumSavedOutfitsMany() {
         savedOutfits.addOutfit(testOutfit);
-        Outfit testOutfit2 = new Outfit("Test 2", items);
+        Outfit testOutfit2 = new Outfit("test 2", items);
         savedOutfits.addOutfit(testOutfit2);
 
         assertEquals(2, savedOutfits.numSavedOutfits());
@@ -90,7 +90,7 @@ public class SavedOutfitsTest {
     @Test
     void testGetOutfitFromNameOneItem() {
         savedOutfits.addOutfit(testOutfit);
-        assertEquals(items, savedOutfits.getOutfitFromName("Test"));
+        assertEquals(items, savedOutfits.getOutfitFromName("test"));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class SavedOutfitsTest {
         list.add(item3);
 
         savedOutfits.addOutfit(testOutfit);
-        assertEquals(list, savedOutfits.getOutfitFromName("Test"));
+        assertEquals(list, savedOutfits.getOutfitFromName("test"));
     }
 
     @Test
@@ -116,5 +116,27 @@ public class SavedOutfitsTest {
         savedOutfits.addOutfit(testOutfit);
 
         assertEquals(list, savedOutfits.getOutfitFromName("Fail"));
+    }
+
+    @Test
+    void testGetOutfitEmpty() {
+        List<Outfit> outfits = savedOutfits.getOutfits();
+        assertEquals(0, outfits.size());
+    }
+
+    @Test
+    void testGetOutfitMany() {
+        ClothingItem item2 = new ClothingItem("Item2", "red", "pants");
+        List<ClothingItem> items2 = new ArrayList<>();
+        items2.add(item2);
+        Outfit testOutfit2 = new Outfit("test 2", items2);
+
+        savedOutfits.addOutfit(testOutfit);
+        savedOutfits.addOutfit(testOutfit2);
+
+        List<Outfit> outfits = savedOutfits.getOutfits();
+        assertEquals(2, outfits.size());
+        assertEquals(testOutfit, outfits.get(0));
+        assertEquals(testOutfit2, outfits.get(1));
     }
 }

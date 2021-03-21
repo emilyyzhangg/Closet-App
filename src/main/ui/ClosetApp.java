@@ -52,6 +52,7 @@ public class ClosetApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                saveCloset();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -82,22 +83,6 @@ public class ClosetApp {
                 viewSavedOutfit();
                 break;
             default:
-                processCommandPersistence(command);
-                break;
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: processes command given by the user
-    private void processCommandPersistence(String command) {
-        switch (command) {
-            case "s":
-                saveCloset();
-                break;
-            case "l":
-                loadCloset();
-                break;
-            default:
                 System.out.println("Sorry, that's not a valid input! Please try again.");
                 break;
         }
@@ -111,6 +96,7 @@ public class ClosetApp {
         display = new Outfit("Today's Outfit", clothes);
         savedOutfits = new SavedOutfits();
         input = new Scanner(System.in);
+        loadCloset();
     }
 
     // EFFECTS: displays home menu for users to interact with
@@ -122,8 +108,6 @@ public class ClosetApp {
         System.out.println("\tEnter 'v' to view all the items in your closet");
         System.out.println("\tEnter 'n' to create and save a new outfit");
         System.out.println("\tEnter 'o' to view a saved outfit");
-        System.out.println("\tEnter 's' save closet to file");
-        System.out.println("\tEnter 'l' to load closet from file");
         System.out.println("\tEnter 'q' to quit");
     }
 
