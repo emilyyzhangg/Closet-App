@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 // Represents a closet with a list of clothing items
 public class Closet implements Writable {
@@ -71,6 +72,7 @@ public class Closet implements Writable {
                 items.add(c);
             }
         }
+
         return items;
     }
 
@@ -116,11 +118,15 @@ public class Closet implements Writable {
         return numItems;
     }
 
-    // REQUIRES: string is a non-zero length
     // MODIFIES: this
     // EFFECTS: changes name associated with the clothing item, returns true. If name is same as another item or item
     // doesn't exist in closet, return false
-    public boolean changeItemName(ClothingItem item, String newName) {
+    // throws an IllegalArgumentException if newName is empty
+    public boolean changeItemName(ClothingItem item, String newName) throws IllegalArgumentException {
+        if (newName.length() == 0) {
+            throw new IllegalArgumentException();
+        }
+
         ClothingItem newItem = new ClothingItem(newName, item.getColour(), item.getCategory());
 
         List<String> names = new ArrayList<>();
@@ -136,10 +142,14 @@ public class Closet implements Writable {
         }
     }
 
-    // REQUIRES: string is a non-zero length
     // MODIFIES: this
     // EFFECTS: changes the colour associated with the clothing item if found and produces true; else produces false
-    public boolean changeItemColour(ClothingItem item, String newColour) {
+    // throws an IllegalArgumentException if newColour is empty
+    public boolean changeItemColour(ClothingItem item, String newColour) throws IllegalArgumentException {
+        if (newColour.length() == 0) {
+            throw new IllegalArgumentException();
+        }
+
         ClothingItem newItem = new ClothingItem(item.getName(), newColour, item.getCategory());
 
         if (this.clothes.contains(item)) {
@@ -150,10 +160,14 @@ public class Closet implements Writable {
         }
     }
 
-    // REQUIRES: string is a non-zero length
     // MODIFIES: this
     // EFFECTS: changes the category associated with the clothing item if found and produces true; else produces false
-    public boolean changeItemCategory(ClothingItem item, String newCategory)  {
+    // throws an IllegalArgumentException if newCategory is empty
+    public boolean changeItemCategory(ClothingItem item, String newCategory) throws IllegalArgumentException {
+        if (newCategory.length() == 0) {
+            throw new IllegalArgumentException();
+        }
+
         ClothingItem newItem = new ClothingItem(item.getName(), item.getColour(), newCategory);
 
         if (this.clothes.contains(item)) {
@@ -174,12 +188,21 @@ public class Closet implements Writable {
         return !names.contains(name);
     }
 
-    // REQUIRES: item with given name exists in the closet
-    // EFFECTS: returns item with given name
-    public ClothingItem getItemFromName(String name) {
+    // EFFECTS: returns item with given name, throws a NoSuchElementException is the item doesn't exist in the closet
+    public ClothingItem getItemFromName(String name) throws NoSuchElementException {
         ClothingItem choice = null;
+        List<String> clothingNames = new ArrayList<>();
 
         for (ClothingItem c : clothes) {
+            clothingNames.add(c.getName());
+        }
+
+        if (!clothingNames.contains(name)) {
+            throw new NoSuchElementException();
+        }
+
+        for (ClothingItem c : clothes) {
+            clothingNames.add(c.getName());
             if (c.getName().equals(name)) {
                 choice = c;
             }

@@ -38,3 +38,11 @@ sweatshirt. I think an app like this could help me improve my own daily style as
 - As a user, I want to be able to load my closet with all of my saved clothing
 - As a user, I want to be able to save all my saved outfits
 - As a user, I want to be able to load all my saved outfits
+
+##Phase 4: Task 2
+Chosen Option: Test and design a class in your model package that is robust.  You must have at least one method that 
+throws a checked exception.  You must have one test for the case where the exception is expected and another where the 
+exception is not expected.
+- Robust class = Closet
+- Robust methods = changeItemName, changeItemColour, changeItemCategory, getItemFromName
+

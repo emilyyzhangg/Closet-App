@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // Closet Application
@@ -214,13 +215,15 @@ public class ClosetApp {
             removeFromCloset();
         } else if (command.equals("q")) {
             System.out.println("Have a nice day!");
-        } else if (closet.allItemsNames().contains(command)) {
-            itemRemoved = closet.getItemFromName(command);
-            closet.removeItem(itemRemoved);
-            System.out.println("Item successfully removed!");
         } else {
-            System.out.println("Sorry, there is no item in your closet with that name. Please try again.");
-            removeFromCloset();
+            try {
+                itemRemoved = closet.getItemFromName(command);
+                closet.removeItem(itemRemoved);
+                System.out.println("Item successfully removed!");
+            } catch (NoSuchElementException e) {
+                System.out.println("Sorry, there is no item in your closet with that name. Please try again.");
+                removeFromCloset();
+            }
         }
     }
 
@@ -268,13 +271,15 @@ public class ClosetApp {
             return true;
         } else if (command.equals("q")) {
             return false;
-        } else if (closet.allItemsNames().contains(command)) {
-            clothes.add(closet.getItemFromName(command));
-            System.out.println("Item successfully added.");
-            return true;
         } else {
-            System.out.println("Sorry, this item doesn't exist. Please try again.");
-            return true;
+            try {
+                clothes.add(closet.getItemFromName(command));
+                System.out.println("Item successfully added.");
+                return true;
+            } catch (NoSuchElementException e) {
+                System.out.println("Sorry, this item doesn't exist. Please try again.");
+                return true;
+            }
         }
     }
 

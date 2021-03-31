@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -309,8 +310,12 @@ class ClosetTest {
     void testChangeItemNameValid() {
         testCloset.addItem(testItem);
 
-        assertTrue(testCloset.changeItemName(testItem, "New Name"));
-        assertEquals("New Name", testCloset.allItems().get(0).getName());
+        try {
+            assertTrue(testCloset.changeItemName(testItem, "New Name"));
+            assertEquals("New Name", testCloset.allItems().get(0).getName());
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
@@ -319,8 +324,12 @@ class ClosetTest {
         ClothingItem testItem2 = new ClothingItem("Test 2", "Purple", "Shirts");
         testCloset.addItem(testItem2);
 
-        assertFalse(testCloset.changeItemName(testItem, "Test 2"));
-        assertEquals("Test", testCloset.allItems().get(0).getName());
+        try {
+            assertFalse(testCloset.changeItemName(testItem, "Test 2"));
+            assertEquals("Test", testCloset.allItems().get(0).getName());
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
@@ -328,25 +337,48 @@ class ClosetTest {
         ClothingItem testItem2 = new ClothingItem("Test 2", "Purple", "Shirts");
         testCloset.addItem(testItem2);
 
-        assertFalse(testCloset.changeItemName(testItem, "fail"));
-        assertEquals("Test 2", testCloset.allItems().get(0).getName());
+        try {
+            assertFalse(testCloset.changeItemName(testItem, "fail"));
+            assertEquals("Test 2", testCloset.allItems().get(0).getName());
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
+    }
+
+    @Test
+    void testChangeItemNameEmptyString() {
+        testCloset.addItem(testItem);
+
+        try {
+            testCloset.changeItemName(testItem, "");
+            fail();
+        } catch (IllegalArgumentException e) {
+            // exception expected
+        }
     }
 
     @Test
     void testChangeItemColourEmpty() {
-        assertFalse(testCloset.changeItemColour(testItem, "Red"));
-        assertEquals(0, testCloset.numTotalItems());
-        assertEquals(0, testCloset.numItemsOfColour("Red"));
+        try {
+            assertFalse(testCloset.changeItemColour(testItem, "Red"));
+            assertEquals(0, testCloset.numTotalItems());
+            assertEquals(0, testCloset.numItemsOfColour("Red"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
     void testChangeItemColourFound() {
         testCloset.addItem(testItem);
-
-        assertTrue(testCloset.changeItemColour(testItem, "Blue"));
-        assertEquals(1, testCloset.numTotalItems());
-        assertEquals(1, testCloset.numItemsOfColour("Blue"));
-        assertEquals(0, testCloset.numItemsOfColour("Red"));
+        try {
+            assertTrue(testCloset.changeItemColour(testItem, "Blue"));
+            assertEquals(1, testCloset.numTotalItems());
+            assertEquals(1, testCloset.numItemsOfColour("Blue"));
+            assertEquals(0, testCloset.numItemsOfColour("Red"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
@@ -354,27 +386,52 @@ class ClosetTest {
         testCloset.addItem(testItem);
         ClothingItem newItem = new ClothingItem("Purple Hat", "Purple", "Hat");
 
-        assertFalse(testCloset.changeItemColour(newItem, "Red"));
-        assertEquals(1, testCloset.numTotalItems());
-        assertEquals(1, testCloset.numItemsOfColour("Red"));
-        assertEquals(0, testCloset.numItemsOfColour("Purple"));
+        try {
+            assertFalse(testCloset.changeItemColour(newItem, "Red"));
+            assertEquals(1, testCloset.numTotalItems());
+            assertEquals(1, testCloset.numItemsOfColour("Red"));
+            assertEquals(0, testCloset.numItemsOfColour("Purple"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
+    }
+
+    @Test
+    void testChangeItemColourEmptyString() {
+        testCloset.addItem(testItem);
+
+        try {
+            testCloset.changeItemColour(testItem, "");
+            fail();
+        } catch (IllegalArgumentException e) {
+            // exception expected
+        }
     }
 
     @Test
     void testChangeItemCategoryEmpty() {
-        assertFalse(testCloset.changeItemCategory(testItem, "Scarves"));
-        assertEquals(0, testCloset.numTotalItems());
-        assertEquals(0, testCloset.numItemsInCategory("Scarves"));
+        try {
+            assertFalse(testCloset.changeItemCategory(testItem, "Scarves"));
+            assertEquals(0, testCloset.numTotalItems());
+            assertEquals(0, testCloset.numItemsInCategory("Scarves"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
     void testChangeItemCategoryFound() {
         testCloset.addItem(testItem);
-        testCloset.changeItemCategory(testItem, "Purses");
 
-        assertEquals(1, testCloset.numTotalItems());
-        assertEquals(1, testCloset.numItemsInCategory("Purses"));
-        assertEquals(0, testCloset.numItemsInCategory("Pants"));
+        try {
+            testCloset.changeItemCategory(testItem, "Purses");
+
+            assertEquals(1, testCloset.numTotalItems());
+            assertEquals(1, testCloset.numItemsInCategory("Purses"));
+            assertEquals(0, testCloset.numItemsInCategory("Pants"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
@@ -382,10 +439,26 @@ class ClosetTest {
         testCloset.addItem(testItem);
         ClothingItem newItem = new ClothingItem("Purple Hat", "Purple", "Hat");
 
-        assertFalse(testCloset.changeItemCategory(newItem, "Jorts"));
-        assertEquals(1, testCloset.numTotalItems());
-        assertEquals(1, testCloset.numItemsInCategory("Pants"));
-        assertEquals(0, testCloset.numItemsInCategory("Jorts"));
+        try {
+            assertFalse(testCloset.changeItemCategory(newItem, "Jorts"));
+            assertEquals(1, testCloset.numTotalItems());
+            assertEquals(1, testCloset.numItemsInCategory("Pants"));
+            assertEquals(0, testCloset.numItemsInCategory("Jorts"));
+        } catch (IllegalArgumentException e) {
+            fail("Did not expect exception to be thrown");
+        }
+    }
+
+    @Test
+    void testChangeItemCategoryEmptyString() {
+        testCloset.addItem(testItem);
+
+        try {
+            testCloset.changeItemCategory(testItem, "");
+            fail();
+        } catch (IllegalArgumentException e) {
+            // exception expected
+        }
     }
 
     @Test
@@ -405,12 +478,22 @@ class ClosetTest {
     @Test
     void testGetItemFromNameSucceed() {
         testCloset.addItem(testItem);
-        assertEquals(testItem, testCloset.getItemFromName("Test"));
+        try {
+            assertEquals(testItem, testCloset.getItemFromName("Test"));
+        } catch (NoSuchElementException e) {
+            fail("Did not expect exception to be thrown");
+        }
     }
 
     @Test
     void testGetItemFromNameNoName() {
         testCloset.addItem(testItem);
-        assertEquals(null, testCloset.getItemFromName("Wrong name"));
+
+        try {
+            testCloset.getItemFromName("Wrong name");
+            fail();
+        } catch (NoSuchElementException e) {
+            // expected exception
+        }
     }
 }

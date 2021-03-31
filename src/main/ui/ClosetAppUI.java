@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 // Citation: code adapted from the Java tutorials in the Oracle help desk
 // Represents the GUI of the closet app
@@ -172,13 +173,18 @@ public class ClosetAppUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a new outfit in saved outfits with given name and items
+    // EFFECTS: creates a new outfit in saved outfits with given name and items, display an error panel if a clothing
+    // item isn't found
     public void createNewOutfit(String name, List<String> itemList) {
         List<ClothingItem> itemsInOutfit = new ArrayList<>();
 
         for (String itemName : itemList) {
-            ClothingItem item = closet.getItemFromName(itemName);
-            itemsInOutfit.add(item);
+            try {
+                ClothingItem item = closet.getItemFromName(itemName);
+                itemsInOutfit.add(item);
+            } catch (NoSuchElementException e) {
+                JOptionPane.showMessageDialog(panel, "Sorry, something went wrong!");
+            }
         }
 
         Outfit outfit = new Outfit(name, itemsInOutfit);
