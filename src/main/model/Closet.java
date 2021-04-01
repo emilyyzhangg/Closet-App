@@ -199,14 +199,14 @@ public class Closet implements Writable {
 
         if (!clothingNames.contains(name)) {
             throw new NoSuchElementException();
-        }
-
-        for (ClothingItem c : clothes) {
-            if (c.getName().equals(name)) {
-                choice = c;
+        } else {
+            for (ClothingItem c : clothes) {
+                if (c.getName().equals(name)) {
+                    choice = c;
+                }
             }
+            return choice;
         }
-        return choice;
     }
 
     @Override

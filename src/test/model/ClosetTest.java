@@ -476,6 +476,16 @@ class ClosetTest {
     }
 
     @Test
+    void testGetItemFromNameEmptyCloset() {
+        try {
+            testCloset.getItemFromName("Test");
+            fail();
+        } catch (NoSuchElementException e) {
+            // expected exception
+        }
+    }
+
+    @Test
     void testGetItemFromNameSucceed() {
         testCloset.addItem(testItem);
         try {
@@ -488,7 +498,6 @@ class ClosetTest {
     @Test
     void testGetItemFromNameNoName() {
         testCloset.addItem(testItem);
-
         try {
             testCloset.getItemFromName("Wrong name");
             fail();
