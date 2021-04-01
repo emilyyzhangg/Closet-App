@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 // Represents a closet with a list of clothing items
+// Invariant: all strings must have a non-zero length, there can be no duplicate items in the closet
 public class Closet implements Writable {
     private List<ClothingItem> clothes;
 
