@@ -3,8 +3,6 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.awt.*;
-
 // Represents a clothing item with a name, colour, and category
 public class ClothingItem implements Writable {
     private String name;

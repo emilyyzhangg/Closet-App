@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 
 // Represents a closet with a list of clothing items
 public class Closet implements Writable {
-
     private List<ClothingItem> clothes;
 
     // EFFECTS: constructs an empty collection of clothing items
@@ -191,20 +190,16 @@ public class Closet implements Writable {
     // EFFECTS: returns item with given name, throws a NoSuchElementException is the item doesn't exist in the closet
     public ClothingItem getItemFromName(String name) throws NoSuchElementException {
         ClothingItem choice = null;
-        List<String> clothingNames = new ArrayList<>();
 
         for (ClothingItem c : clothes) {
-            clothingNames.add(c.getName());
+            if (c.getName().equals(name)) {
+                choice = c;
+            }
         }
 
-        if (!clothingNames.contains(name)) {
+        if (choice == null) {
             throw new NoSuchElementException();
         } else {
-            for (ClothingItem c : clothes) {
-                if (c.getName().equals(name)) {
-                    choice = c;
-                }
-            }
             return choice;
         }
     }

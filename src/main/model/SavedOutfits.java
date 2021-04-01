@@ -1,6 +1,5 @@
 package model;
 
-import jdk.nashorn.api.scripting.JSObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -17,7 +16,6 @@ public class SavedOutfits implements Writable {
         this.savedOutfits = new ArrayList<>();
     }
 
-    // REQUIRES: outfit already exists
     // MODIFIES: this
     // EFFECTS: adds outfit to list of saved outfits and produces true if it is not a duplicate; else does
     // nothing and returns false
