@@ -202,7 +202,6 @@ public class Closet implements Writable {
         }
 
         for (ClothingItem c : clothes) {
-            clothingNames.add(c.getName());
             if (c.getName().equals(name)) {
                 choice = c;
             }
