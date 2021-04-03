@@ -86,9 +86,7 @@ public class SavedOutfitsAction extends AbstractAction {
 
     // Represents the action taken when an outfit button is pressed, displays the outfit
     public class ShowOutfitAction extends AbstractAction {
-        private Outfit outfit;
         private final List<ClothingItem> items;
-        private JPanel itemsPanel;
         private JPanel accessoriesPanel;
         private JPanel shirtsPanel;
         private JPanel jacketsPanel;
@@ -100,9 +98,7 @@ public class SavedOutfitsAction extends AbstractAction {
         // EFFECTS: constructs a show outfit action
         ShowOutfitAction(Outfit outfit) {
             super(outfit.getOutfitName());
-            this.outfit = outfit;
             this.items = outfit.displayOutfit();
-            itemsPanel = new JPanel();
         }
 
         // MODIFIES: this

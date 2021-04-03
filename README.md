@@ -46,3 +46,10 @@ exception is not expected.
 - Robust class = Closet
 - Robust methods = changeItemName, changeItemColour, changeItemCategory, getItemFromName
 
+##Phase 4: Task 3
+- I would refactor the model code such that closet and outfit both extend a class/interface that represents a 
+list of clothing to reduce duplicate  code
+- I would have one SubmitAction that both AddAction and NewOutfitAction instantiate to reduce duplicate code
+- I would abstract out the similarities between the ViewAction.ShowItemAction class and the 
+SavedOutfitsAction.ShowOutfitAction class to reduce duplicate code
+

@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyStringException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -121,10 +122,10 @@ public class Closet implements Writable {
     // MODIFIES: this
     // EFFECTS: changes name associated with the clothing item, returns true. If name is same as another item or item
     // doesn't exist in closet, return false
-    // throws an IllegalArgumentException if newName is empty
-    public boolean changeItemName(ClothingItem item, String newName) throws IllegalArgumentException {
+    // throws an EmptyStringException if newName is empty
+    public boolean changeItemName(ClothingItem item, String newName) throws EmptyStringException {
         if (newName.length() == 0) {
-            throw new IllegalArgumentException();
+            throw new EmptyStringException();
         }
 
         ClothingItem newItem = new ClothingItem(newName, item.getColour(), item.getCategory());
@@ -144,10 +145,10 @@ public class Closet implements Writable {
 
     // MODIFIES: this
     // EFFECTS: changes the colour associated with the clothing item if found and produces true; else produces false
-    // throws an IllegalArgumentException if newColour is empty
-    public boolean changeItemColour(ClothingItem item, String newColour) throws IllegalArgumentException {
+    // throws an EmptyStringException if newColour is empty
+    public boolean changeItemColour(ClothingItem item, String newColour) throws EmptyStringException {
         if (newColour.length() == 0) {
-            throw new IllegalArgumentException();
+            throw new EmptyStringException();
         }
 
         ClothingItem newItem = new ClothingItem(item.getName(), newColour, item.getCategory());
@@ -162,10 +163,10 @@ public class Closet implements Writable {
 
     // MODIFIES: this
     // EFFECTS: changes the category associated with the clothing item if found and produces true; else produces false
-    // throws an IllegalArgumentException if newCategory is empty
-    public boolean changeItemCategory(ClothingItem item, String newCategory) throws IllegalArgumentException {
+    // throws an EmptyStringException if newCategory is empty
+    public boolean changeItemCategory(ClothingItem item, String newCategory) throws EmptyStringException {
         if (newCategory.length() == 0) {
-            throw new IllegalArgumentException();
+            throw new EmptyStringException();
         }
 
         ClothingItem newItem = new ClothingItem(item.getName(), item.getColour(), newCategory);

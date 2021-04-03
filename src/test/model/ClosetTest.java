@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyStringException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -313,7 +314,7 @@ class ClosetTest {
         try {
             assertTrue(testCloset.changeItemName(testItem, "New Name"));
             assertEquals("New Name", testCloset.allItems().get(0).getName());
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -327,7 +328,7 @@ class ClosetTest {
         try {
             assertFalse(testCloset.changeItemName(testItem, "Test 2"));
             assertEquals("Test", testCloset.allItems().get(0).getName());
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -340,7 +341,7 @@ class ClosetTest {
         try {
             assertFalse(testCloset.changeItemName(testItem, "fail"));
             assertEquals("Test 2", testCloset.allItems().get(0).getName());
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -352,7 +353,7 @@ class ClosetTest {
         try {
             testCloset.changeItemName(testItem, "");
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             // exception expected
         }
     }
@@ -363,7 +364,7 @@ class ClosetTest {
             assertFalse(testCloset.changeItemColour(testItem, "Red"));
             assertEquals(0, testCloset.numTotalItems());
             assertEquals(0, testCloset.numItemsOfColour("Red"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -376,7 +377,7 @@ class ClosetTest {
             assertEquals(1, testCloset.numTotalItems());
             assertEquals(1, testCloset.numItemsOfColour("Blue"));
             assertEquals(0, testCloset.numItemsOfColour("Red"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -391,7 +392,7 @@ class ClosetTest {
             assertEquals(1, testCloset.numTotalItems());
             assertEquals(1, testCloset.numItemsOfColour("Red"));
             assertEquals(0, testCloset.numItemsOfColour("Purple"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -403,7 +404,7 @@ class ClosetTest {
         try {
             testCloset.changeItemColour(testItem, "");
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             // exception expected
         }
     }
@@ -414,7 +415,7 @@ class ClosetTest {
             assertFalse(testCloset.changeItemCategory(testItem, "Scarves"));
             assertEquals(0, testCloset.numTotalItems());
             assertEquals(0, testCloset.numItemsInCategory("Scarves"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -429,7 +430,7 @@ class ClosetTest {
             assertEquals(1, testCloset.numTotalItems());
             assertEquals(1, testCloset.numItemsInCategory("Purses"));
             assertEquals(0, testCloset.numItemsInCategory("Pants"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -444,7 +445,7 @@ class ClosetTest {
             assertEquals(1, testCloset.numTotalItems());
             assertEquals(1, testCloset.numItemsInCategory("Pants"));
             assertEquals(0, testCloset.numItemsInCategory("Jorts"));
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             fail("Did not expect exception to be thrown");
         }
     }
@@ -456,7 +457,7 @@ class ClosetTest {
         try {
             testCloset.changeItemCategory(testItem, "");
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyStringException e) {
             // exception expected
         }
     }
