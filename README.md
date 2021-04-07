@@ -52,4 +52,5 @@ list of clothing to reduce duplicate  code
 - I would have one SubmitAction that both AddAction and NewOutfitAction instantiate to reduce duplicate code
 - I would abstract out the similarities between the ViewAction.ShowItemAction class and the 
 SavedOutfitsAction.ShowOutfitAction class to reduce duplicate code
+- I would want Closet and SavedOutfits to implement iterable, since they are both collections of objects
 
